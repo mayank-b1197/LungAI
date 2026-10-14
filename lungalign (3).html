@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LungAlign AI</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark;
+--bg:#0f1629;--card:#172036;--bd:#1f2f55;--tx:#fff;--mu:#94a3b8;--cy:#0eb5d8;--grad:linear-gradient(90deg,#1d4ed8,#0bb8d6);--ok:#34d399;--warn:#fbbf24;--bad:#f87171}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font-family:Inter,Segoe UI,Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+nav{display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;border-bottom:1px solid #16213c;background:#0d1426;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:22px;cursor:pointer}
+.lg{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#1d4ed8,#0bb8d6);display:grid;place-items:center}
+.lg svg{width:22px;height:22px}
+.links{display:flex;align-items:center;gap:26px}.links a{color:var(--mu);cursor:pointer;font-size:16px}.links a.on{color:var(--cy)}
+.btn{background:var(--grad);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 6px 20px #1d4ed855;display:inline-flex;gap:8px;align-items:center;justify-content:center}
+.btn.sec{background:#111a2e;border:1px solid var(--bd);box-shadow:none;font-weight:500}.btn:disabled{opacity:.5;cursor:not-allowed}
+main{flex:1;padding:0 5vw}section{display:none;max-width:1180px;margin:0 auto;padding:50px 0}section.on{display:block}
+.c{text-align:center}h1{font-size:clamp(38px,7vw,70px);line-height:1.1;margin:18px 0}h2{font-size:clamp(28px,4vw,40px);margin:0 0 10px}
+.g{color:var(--cy)}.mu{color:var(--mu)}
+.pill{display:inline-block;border:1px solid var(--bd);background:#13203f;color:#2d9cf0;padding:8px 18px;border-radius:99px;font-size:14px}
+.grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:40px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:30px;text-align:left}
+.card h3{margin:18px 0 8px;font-size:21px}.card p{color:var(--mu);line-height:1.65;margin:0}
+.ic{width:68px;height:68px;border-radius:14px;background:#17344f;display:grid;place-items:center;color:var(--cy);font-size:28px}
+.cta{max-width:940px;margin:60px auto 0;padding:60px 20px;border:1px solid var(--bd);border-radius:26px;background:#141e33;box-shadow:0 0 90px #1d4ed82e}
+.steps{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:24px}
+.steps div{display:flex;gap:14px;color:var(--mu)}.n{flex:none;width:40px;height:40px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:700}
+.av{width:78px;height:78px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:24px;font-weight:700;margin:0 auto 18px;box-shadow:0 0 24px #1d4ed855}
+.team .card{text-align:center;padding:30px 12px}
+.up{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:36px}
+.drop{margin-top:16px;border:2px dashed #2a3a5c;border-radius:14px;min-height:300px;display:grid;place-items:center;cursor:pointer;color:var(--mu);overflow:hidden;text-align:center}
+.drop img{width:100%;height:100%;max-height:420px;object-fit:contain}.drop svg{width:38px;height:38px;margin-bottom:10px}
+.lab{display:flex;align-items:center;gap:8px;font-weight:600}
+.res{margin-top:34px;display:none}.res.on{display:block}
+.gauge{display:flex;flex-wrap:wrap;gap:30px;align-items:center}
+.ring{width:170px;height:170px;border-radius:50%;display:grid;place-items:center;flex:none}
+.ring div{width:134px;height:134px;border-radius:50%;background:var(--card);display:grid;place-items:center;text-align:center}
+.ring b{font-size:38px;display:block}.ring span{font-size:12px;color:var(--mu)}
+.stats{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));flex:1;min-width:240px}
+.stat{background:#111a2e;border:1px solid var(--bd);border-radius:12px;padding:14px}.stat span{color:var(--mu);font-size:13px}.stat b{display:block;font-size:22px;margin-top:4px}
+ul{color:var(--mu);line-height:1.8;padding-left:20px}.warn{font-size:13px;color:var(--mu);border-top:1px solid var(--bd);margin-top:20px;padding-top:14px}
+.err{color:var(--bad);margin-top:14px}
+.form{max-width:480px;margin:40px auto;background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:36px}
+.form label{display:block;margin:18px 0 8px;font-weight:600}.form input{width:100%;background:#0f1629;border:1px solid var(--bd);border-radius:12px;padding:14px;color:#fff;font-size:16px}
+footer{border-top:1px solid #16213c;padding:34px 5vw;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:var(--mu)}
+@media(max-width:700px){.links{gap:12px}.links a{font-size:14px}.links .btn{padding:8px 12px}.logo span{display:none}}
+</style></head><body>
+<nav><div class="logo" onclick="go('home')"><div class="lg"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><span>LungAlign AI</span></div>
+<div class="links"><a data-p="home" onclick="go('home')">Home</a><a data-p="about" onclick="go('about')">About</a><a data-p="demo" onclick="go('demo')">Try Demo</a><button class="btn" onclick="go('signin')">Sign In</button></div></nav>
+<main>
+<section id="home">
+<div class="c"><span class="pill">✦ AI-Powered Lung Analysis</span>
+<h1>Align. Analyze.<br><span class="g">Accelerate Diagnosis.</span></h1>
+<p class="mu" style="max-width:700px;margin:0 auto 30px;font-size:19px;line-height:1.6">Upload lung CT scans and let our AI precisely align images, detect damaged areas, and assess severity — all in seconds.</p>
+<button class="btn" onclick="go('demo')">Try Now →</button> <button class="btn sec" onclick="go('about')">Learn More</button></div>
+<div class="c" style="margin-top:110px"><h2>How It Works</h2><p class="mu" style="font-size:19px">Advanced deep learning meets clinical imaging for faster, smarter lung analysis.</p></div>
+<div class="grid">
+<div class="card"><div class="ic">⛶</div><h3>CT Scan Alignment</h3><p>Precisely align lung CT scans for accurate comparison over time.</p></div>
+<div class="card"><div class="ic">🧠</div><h3>AI-Powered Analysis</h3><p>Deep learning models detect and highlight damaged regions automatically.</p></div>
+<div class="card"><div class="ic">🛡</div><h3>Severity Assessment</h3><p>Get instant damage percentage, severity level, and confidence scores.</p></div>
+<div class="card"><div class="ic">⚡</div><h3>Instant Results</h3><p>Process scans in seconds with our optimized inference pipeline.</p></div></div>
+<div class="cta c"><h2 style="font-size:44px">Ready to explore?</h2><p class="mu" style="font-size:19px">Try our demo with sample CT scans and see AI analysis in action.</p><button class="btn" style="margin-top:14px" onclick="go('demo')">Launch Demo →</button></div>
+</section>
+
+<section id="about">
+<div class="c"><h1 style="font-size:clamp(34px,6vw,56px)">About <span class="g">LungAlign AI</span></h1><p class="mu" style="max-width:700px;margin:auto;font-size:19px;line-height:1.6">Bridging the gap between AI and pulmonary diagnostics to deliver faster, more accurate lung analysis.</p></div>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+<div class="card"><div class="ic" style="width:56px;height:56px">◎</div><h3>Our Mission</h3><p>To democratize advanced lung CT analysis using AI, enabling clinicians to detect and monitor pulmonary conditions earlier and more accurately.</p></div>
+<div class="card"><div class="ic" style="width:56px;height:56px">♡</div><h3>Why It Matters</h3><p>Early detection of lung damage can save lives. Our tool helps radiologists align and compare scans over time, surfacing subtle changes automatically.</p></div>
+<div class="card"><div class="ic" style="width:56px;height:56px">👥</div><h3>Who It's For</h3><p>Designed for radiologists, pulmonologists, researchers, and medical students who work with lung CT imaging regularly.</p></div></div>
+<div class="card" style="margin-top:50px"><h2 style="font-size:30px"><span class="g">💡</span> How LungAlign AI Works</h2>
+<div class="steps"><div><i class="n">1</i>Upload two lung CT scan images</div><div><i class="n">2</i>AI aligns both scans spatially</div><div><i class="n">3</i>Damaged areas are detected and highlighted</div><div><i class="n">4</i>Get severity scores and downloadable reports</div></div></div>
+<div class="c" style="margin-top:70px"><h2>Our Team</h2><p class="mu">The people behind LungAlign AI.</p></div>
+<div class="grid team" style="max-width:640px;margin-left:auto;margin-right:auto"><div class="card"><div class="av">RB</div><h3 style="margin:0">Rishabh Bhardwaj</h3><p>Team Member</p></div><div class="card"><div class="av">LK</div><h3 style="margin:0">Lucky Kaushik</h3><p>Team Member</p></div></div>
+</section>
+
+<section id="demo">
+<div class="c"><h1 style="font-size:clamp(34px,6vw,52px)">Try <span class="g">LungAlign AI</span></h1><p class="mu" style="font-size:18px">Upload a lung CT scan (add a second follow-up scan to compare over time) and let our AI analyze it.</p></div>
+<div class="up">
+<div class="card" style="padding:22px"><div class="lab g">⛶ <span style="color:#fff">Scan 1 (Baseline)</span></div><label class="drop" id="d1"><input type="file" accept="image/*" hidden id="f1"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg><br>Click to upload</div></label></div>
+<div class="card" style="padding:22px"><div class="lab g">⛶ <span style="color:#fff">Scan 2 (Follow-up) <small class="mu">— optional</small></span></div><label class="drop" id="d2"><input type="file" accept="image/*" hidden id="f2"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg><br>Click to upload</div></label></div></div>
+<div class="c" style="margin-top:28px"><button class="btn" id="go" disabled>Analyze Scans →</button><div id="st" class="mu" style="margin-top:12px"></div><div id="er" class="err"></div></div>
+<div class="card res" id="res"></div>
+</section>
+
+<section id="signin"><div class="form"><div class="logo" style="justify-content:center"><div class="lg"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>LungAlign AI</div>
+<div class="c"><h2 style="margin-top:22px">Welcome Back</h2><p class="mu" style="margin:0">Sign in to continue</p></div>
+<label>Email</label><input type="email" placeholder="you@hospital.org"><label>Password</label><input type="password" placeholder="••••••••">
+<button class="btn" style="width:100%;margin-top:24px" onclick="go('demo')">Sign In</button>
+<p class="c mu" style="margin-top:22px">Don't have an account? <span class="g">Sign Up</span></p></div></section>
+</main>
+<footer><b>LungAlign AI</b><span>© 2026 LungAlign AI. For demonstration purposes only.</span></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function go(p){document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===p));
+document.querySelectorAll('.links a').forEach(a=>a.classList.toggle('on',a.dataset.p===p));window.scrollTo(0,0);try{history.replaceState(null,'','#'+p)}catch(e){}}
+go((location.hash||'#home').slice(1)in{home:1,about:1,demo:1,signin:1}?(location.hash||'#home').slice(1):'home');
+const files={};
+async function shrink(file){const url=URL.createObjectURL(file);const img=new Image();await new Promise((r,j)=>{img.onload=r;img.onerror=j;img.src=url});
+const s=Math.min(1,1024/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=img.width*s;c.height=img.height*s;
+c.getContext('2d').drawImage(img,0,0,c.width,c.height);return new Promise(r=>c.toBlob(b=>r({blob:b,url:c.toDataURL('image/jpeg',.8)}),'image/jpeg',.85))}
+function bind(k){$('f'+k).onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const s=await shrink(f);files[k]=s.blob;$('d'+k).innerHTML='<img src="'+s.url+'">'}catch(x){$('er').textContent='Could not read that image.'}$('go').disabled=!files[1];$('res').classList.remove('on')}}
+bind(1);bind(2);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,pick=a=>a[rnd(0,a.length-1)];
+$('go').onclick=async()=>{$('er').textContent='';$('res').classList.remove('on');const btn=$('go');btn.disabled=true;$('st').textContent='Analyzing… aligning scans and detecting regions';
+await new Promise(r=>setTimeout(r,1800));
+const score=rnd(60,90),dmg=100-score,sev=score>=85?'Mild':score>=72?'Mild to Moderate':'Moderate';
+const side=()=>pick(['Clear, no major issues','Minor opacity detected','Slight texture changes','Healthy airflow pattern','Small area of interest']);
+const pool=['Lung fields appear mostly well aerated','Small patchy opacities in the lower zones','Mild increase in bronchovascular markings','No large consolidation visible','No signs of pneumothorax detected','Minor ground-glass-like regions noted','Airway structures appear normal'];
+const f=[];while(f.length<4){const x=pick(pool);if(!f.includes(x))f.push(x)}
+render({valid:true,health_score:score,damage_percent:dmg,severity:sev,confidence:rnd(82,96),left_lung:side(),right_lung:side(),findings:f,
+comparison:files[2]?pick(['Overall stable compared with the baseline scan.','Slight improvement compared with the baseline scan.','Minor changes compared with the baseline scan; follow-up advised.']):null,
+summary:'Your lungs look '+(score>=80?'mostly healthy':'fairly healthy with a few areas worth watching')+', with an estimated lung health of '+score+'%.',
+recommendation:score>=80?'Maintain healthy habits and schedule a routine check-up.':'Consider a follow-up check with a doctor for a clinical opinion.'});
+$('st').textContent='';btn.disabled=false};
+function render(r){const el=$('res');
+if(!r.valid){el.innerHTML='<h2>Unable to analyze</h2><p class="mu">'+esc(r.summary||'This does not look like a lung CT scan.')+'</p>';el.classList.add('on');return}
+const sc=Math.round(r.health_score),col=sc>=75?'var(--ok)':sc>=45?'var(--warn)':'var(--bad)';
+el.innerHTML=`<h2 style="font-size:28px">Analysis Result</h2><div class="gauge" style="margin-top:20px">
+<div class="ring" style="background:conic-gradient(${col} ${sc*3.6}deg,#26324f 0)"><div><p style="margin:0"><b style="color:${col}">${sc}%</b><span>Lung health</span></p></div></div>
+<div class="stats"><div class="stat"><span>Damage</span><b>${Math.round(r.damage_percent)}%</b></div><div class="stat"><span>Severity</span><b style="color:${col}">${esc(r.severity)}</b></div><div class="stat"><span>Confidence</span><b>${Math.round(r.confidence)}%</b></div>
+<div class="stat"><span>Left lung</span><b style="font-size:15px">${esc(r.left_lung)}</b></div><div class="stat"><span>Right lung</span><b style="font-size:15px">${esc(r.right_lung)}</b></div></div></div>
+<p style="margin-top:24px;line-height:1.7">${esc(r.summary)}</p>
+${r.comparison?'<h3>Change over time</h3><p class="mu">'+esc(r.comparison)+'</p>':''}
+<h3>Findings</h3><ul>${(r.findings||[]).map(f=>'<li>'+esc(f)+'</li>').join('')||'<li>No significant abnormalities noted.</li>'}</ul>
+<h3>Suggested next step</h3><p class="mu">${esc(r.recommendation)}</p>
+<p class="warn">⚠ Simulated demo result. This page does not analyze the image and is not a medical diagnosis. Consult a qualified doctor or radiologist.</p>`;el.classList.add('on');el.scrollIntoView({behavior:'smooth'})}
+</script></body></html>
